@@ -3,17 +3,18 @@ import 'package:flutter_application_1/core/utils/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
+  final Widget? widget;
   final VoidCallback? onPressed;
   final Color? color;
   final double? fontSize;
 
-  const CustomButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.color,
-    this.fontSize,
-  });
+  const CustomButton(
+      {super.key,
+      required this.text,
+      this.onPressed,
+      this.color,
+      this.fontSize,
+      this.widget});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,11 @@ class CustomButton extends StatelessWidget {
           ),
         ),
       ),
-      child: Text(
-        text,
-        style: AppTextStyles.button,
-      ),
+      child: widget ??
+          Text(
+            text,
+            style: AppTextStyles.button,
+          ),
     );
   }
 }

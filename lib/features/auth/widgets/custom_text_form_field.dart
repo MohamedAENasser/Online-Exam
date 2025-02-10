@@ -34,10 +34,10 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       maxLines: maxLines,
       decoration: InputDecoration(
+        errorStyle: TextStyle(color: Colors.red),
         hintText: hintText,
         hintStyle: AppTextStyles.hint,
         labelText: labelText,
-
         labelStyle: AppTextStyles.label,
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -62,6 +62,14 @@ class CustomTextFormField extends StatelessWidget {
           ),
         ),
         errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.red,
           ),
