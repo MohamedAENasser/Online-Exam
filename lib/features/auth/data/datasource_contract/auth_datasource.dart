@@ -13,4 +13,9 @@ abstract class AuthDataSource {
   });
 
   Future<Result<void>> forgetPassword({required String email});
+
+  Future<Result<void>> verificationCode({required String code});
+
+  Future<Result<void>> resetPassword(
+      {required String email, required String password});
 }

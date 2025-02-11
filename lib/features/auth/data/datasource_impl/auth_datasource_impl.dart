@@ -38,4 +38,15 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<Result<void>> forgetPassword({required String email}) {
     return apiManager.forgetPassword(email: email);
   }
+
+  @override
+  Future<Result<void>> verificationCode({required String code}) {
+    return apiManager.verificationCode(code: code);
+  }
+
+  @override
+  Future<Result<void>> resetPassword(
+      {required String email, required String password}) {
+    return apiManager.resetPassword(email: email, password: password);
+  }
 }

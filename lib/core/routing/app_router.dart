@@ -18,14 +18,7 @@ abstract class AppRouter {
           builder: (context) => const ForgetPasswordView(),
         );
 
-      case AppRoutes.verificationCode:
-        return MaterialPageRoute(
-          builder: (context) => const VerificationCodeView(),
-        );
-      case AppRoutes.resetPassword:
-        return MaterialPageRoute(
-          builder: (context) => const ResetPasswordView(),
-        );
+
     }
     return null;
   }
