@@ -11,4 +11,6 @@ abstract class AuthDataSource {
     required String confirmPassword,
     required String phoneNumber,
   });
+
+  Future<Result<void>> forgetPassword({required String email});
 }

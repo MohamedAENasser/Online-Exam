@@ -19,7 +19,11 @@ import '../../features/auth/data/datasource_impl/auth_datasource_impl.dart'
     as _i500;
 import '../../features/auth/data/repo_impl/auth_repo_impl.dart' as _i279;
 import '../../features/auth/domain/repo_contract/auth_repo.dart' as _i25;
+import '../../features/auth/domain/usecases/forget_passsword_use_case.dart'
+    as _i877;
 import '../../features/auth/domain/usecases/sign_up_usecase.dart' as _i860;
+import '../../features/auth/forget_password/viewModel/forget_password_cubit.dart'
+    as _i589;
 import '../../features/auth/sign_up/presentation/viewModel/sign_up_cubit.dart'
     as _i1020;
 
@@ -39,8 +43,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i500.AuthDataSourceImpl(apiManager: gh<_i1023.ApiManager>()));
     gh.factory<_i25.AuthRepo>(
         () => _i279.AuthRepoImpl(authDataSource: gh<_i707.AuthDataSource>()));
+    gh.factory<_i877.ForgetPasswordUseCase>(
+        () => _i877.ForgetPasswordUseCase(repo: gh<_i25.AuthRepo>()));
     gh.factory<_i860.SignUpUseCase>(
         () => _i860.SignUpUseCase(repo: gh<_i25.AuthRepo>()));
+    gh.factory<_i589.ForgetPasswordCubit>(() => _i589.ForgetPasswordCubit(
+        forgetPasswordUseCase: gh<_i877.ForgetPasswordUseCase>()));
     gh.factory<_i1020.SignUpCubit>(
         () => _i1020.SignUpCubit(useCase: gh<_i860.SignUpUseCase>()));
     return this;

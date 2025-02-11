@@ -33,4 +33,9 @@ class AuthDataSourceImpl implements AuthDataSource {
       phoneNumber: phoneNumber,
     );
   }
+
+  @override
+  Future<Result<void>> forgetPassword({required String email}) {
+    return apiManager.forgetPassword(email: email);
+  }
 }

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (_, child) {
         return MaterialApp(
-          initialRoute: AppRoutes.signUp,
+          initialRoute: AppRoutes.forgetPassword,
           onGenerateRoute: AppRouter.router,
           theme: AppTheme.light,
           debugShowCheckedModeBanner: false,

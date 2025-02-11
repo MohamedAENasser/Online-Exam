@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/core/utils/app_constants.dart';
 import 'package:flutter_application_1/features/auth/data/model/auth_response/auth_response.dart';
+import 'package:flutter_application_1/features/auth/data/model/forget_password_response/forget_password_response.dart';
 import 'package:flutter_application_1/features/auth/data/model/sign_up_request/sign_up_request.dart';
 import 'package:injectable/injectable.dart';
 
@@ -58,6 +59,28 @@ class ApiManager {
         );
       } else {
         return ServerError(message: authResponse.message ?? '');
+      }
+    } on DioException catch (e) {
+      return Error(exception: e);
+    } catch (e) {
+      return ServerError(message: e.toString());
+    }
+  }
+
+  Future<Result<void>> forgetPassword({required String email}) async {
+    try {
+      var response = await dio.post(
+        AppConstants.forgetPasswordEndPoint,
+        data: {
+          'email': email,
+        },
+      );
+      ForgetPasswordResponse forgetPasswordResponse =
+          ForgetPasswordResponse.fromJson(response.data);
+      if (forgetPasswordResponse.message == 'success') {
+        return Success(data: null);
+      } else {
+        return ServerError(message: forgetPasswordResponse.message ?? '');
       }
     } on DioException catch (e) {
       return Error(exception: e);

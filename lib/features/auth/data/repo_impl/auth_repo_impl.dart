@@ -39,4 +39,9 @@ class AuthRepoImpl implements AuthRepo {
         return Error(exception: result.exception);
     }
   }
+
+  @override
+  Future<Result<void>> forgetPassword({required String email}) {
+    return authDataSource.forgetPassword(email: email);
+  }
 }
