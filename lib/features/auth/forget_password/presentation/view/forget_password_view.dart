@@ -50,10 +50,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
         child: BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
           builder: (context, state) {
             switch (state) {
-              case ForgetPasswordInitial():
-                return buildForgetPasswordView(state);
-              case ForgetPasswordLoading():
-                return buildForgetPasswordView(state);
               case ForgetPasswordSuccess():
                 return BlocProvider(
                   create: (context) => getIt<VerificationCodeCubit>(),
@@ -66,7 +62,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   state.message ?? state.exception.toString(),
                 );
             }
-            return SizedBox();
+            return buildForgetPasswordView(state);
           },
         ),
       ),

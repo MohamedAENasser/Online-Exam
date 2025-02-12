@@ -27,8 +27,6 @@ class VerificationCodeView extends StatelessWidget {
     return BlocBuilder<VerificationCodeCubit, VerificationCodeState>(
       builder: (context, state) {
         switch (state) {
-          case VerificationCodeInitial():
-            return buildVerificationCodeView(state);
           case VerificationCodeLoading():
             return const LoadingWidget();
           case VerificationCodeSuccess():
@@ -38,22 +36,15 @@ class VerificationCodeView extends StatelessWidget {
                 email: email,
               ),
             );
-          case VerificationCodeError():
-            return buildVerificationCodeView(state);
           case ResendVerificationCodeLoading():
             return const LoadingWidget();
-          case ResendVerificationCodeSuccess():
-            return buildVerificationCodeView(state);
-          case ResendVerificationCodeError():
-            return buildVerificationCodeView(state);
         }
-        return SizedBox();
+        return buildVerificationCodeView(context);
       },
     );
   }
 
-  Widget buildVerificationCodeView(context) =>
-      Column(
+  Widget buildVerificationCodeView(context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
