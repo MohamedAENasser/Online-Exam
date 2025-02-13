@@ -1,4 +1,5 @@
 import 'package:flutter_application_1/core/utils/result.dart';
+import 'package:flutter_application_1/features/auth/data/api/api_executer.dart';
 import 'package:flutter_application_1/features/auth/data/api/api_manager.dart';
 
 import 'package:flutter_application_1/features/auth/data/model/auth_response/user_dm.dart';
@@ -35,18 +36,29 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<Result<void>> forgetPassword({required String email}) {
-    return apiManager.forgetPassword(email: email);
+  Future<Result<void>> forgetPassword({required String email}) async {
+    return executeApi<void>(() async {
+      var response = await apiManager.forgetPassword(email: email);
+    });
   }
 
   @override
-  Future<Result<void>> verificationCode({required String code}) {
-    return apiManager.verificationCode(code: code);
+  Future<Result<void>> verificationCode({required String code}) async {
+    return executeApi<void>(() async {
+      var response = await apiManager.verificationCode(code: code);
+    });
   }
 
   @override
-  Future<Result<void>> resetPassword(
-      {required String email, required String password}) {
-    return apiManager.resetPassword(email: email, password: password);
+  Future<Result<void>> resetPassword({
+    required String email,
+    required String password,
+  }) async {
+    return executeApi<void>(() async {
+      var response = await apiManager.resetPassword(
+        email: email,
+        password: password,
+      );
+    });
   }
 }

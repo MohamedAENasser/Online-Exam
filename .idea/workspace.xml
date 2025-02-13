@@ -4,14 +4,42 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eca5d9e5-1332-415c-aee4-ac3b9e8bd476" name="Changes" comment="+ verification code data layer &#10;+ verification code domain layer &#10;+ reset password data layer &#10;+ reset password domain layer">
+    <list default="true" id="eca5d9e5-1332-415c-aee4-ac3b9e8bd476" name="Changes" comment="refactor code">
+      <change afterPath="$PROJECT_DIR$/lib/core/utils/api_error_handler.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/auth/data/api/api_executer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/features/auth/data/model/api_error_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/build/fcd1995bc647fb959e82ea360c6c2c9a/asset_graph.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/build/fcd1995bc647fb959e82ea360c6c2c9a/asset_graph.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/build/generated/flutter_application_1/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.injectable.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/build/generated/flutter_application_1/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.injectable.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/build/generated/flutter_application_1/lib/features/auth/forget_password/viewModel/forget_password_cubit.injectable.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/.filecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/app.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/kernel_snapshot_program.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/kernel_snapshot_program.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/kernel_snapshot_program.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/kernel_snapshot_program.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/program.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/35d0d207debb150736b75bdad6bde3c0/program.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/kernel_blob.bin.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_assets/kernel_blob.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/flutter/debug/flutter_build.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/core/di/di.config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/di/di.config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/utils/result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/utils/result.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/data/api/api_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/data/api/api_manager.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/data/datasource_impl/auth_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/data/datasource_impl/auth_datasource_impl.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/presentation/view/forget_password_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/presentation/view/forget_password_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/reset_password/presentation/view/reset_password_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/reset_password/presentation/view/reset_password_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/reset_password/presentation/viewModel/reset_password_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/reset_password/presentation/viewModel/reset_password_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/view/verification_code_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/view/verification_code_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/widgets/pin_code_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/verification_code/presentation/widgets/pin_code_field.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/viewModel/forget_password_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/presentation/viewModel/forget_password_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/forget_password/viewModel/forget_password_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/forget_password/presentation/viewModel/forget_password_state.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +96,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth\forget_password\presentation" />
       <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth\forget_password\verification_code\presentation" />
       <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth\forget_password" />
       <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth\data\model" />
       <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth" />
-      <recent name="F:\flutter_projects\flutter_course\Online-Exam\lib\features\auth\sign_up" />
     </key>
   </component>
   <component name="RunManager">
@@ -138,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739291323133</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor code">
+      <option name="closed" value="true" />
+      <created>1739370513163</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739370513163</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,7 +195,8 @@
     <MESSAGE value="+ un commited files" />
     <MESSAGE value="+ forget password ui&#10;+ verification code ui &#10;+ reset password ui  &#10;+ forget password data layer &#10;+ forget password domain layer" />
     <MESSAGE value="+ verification code data layer &#10;+ verification code domain layer &#10;+ reset password data layer &#10;+ reset password domain layer" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ verification code data layer &#10;+ verification code domain layer &#10;+ reset password data layer &#10;+ reset password domain layer" />
+    <MESSAGE value="refactor code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor code" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

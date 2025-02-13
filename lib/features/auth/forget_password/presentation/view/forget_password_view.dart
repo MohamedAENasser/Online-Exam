@@ -6,12 +6,12 @@ import 'package:flutter_application_1/core/utils/app_colors.dart';
 import 'package:flutter_application_1/core/utils/app_text_styles.dart';
 import 'package:flutter_application_1/features/auth/forget_password/verification_code/presentation/view/verification_code_view.dart';
 import 'package:flutter_application_1/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart';
-import 'package:flutter_application_1/features/auth/forget_password/viewModel/forget_password_cubit.dart';
 import 'package:flutter_application_1/features/auth/widgets/custom_button.dart';
 import 'package:flutter_application_1/features/auth/widgets/custom_text_form_field.dart';
-import 'package:flutter_application_1/features/auth/widgets/loading_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../viewModel/forget_password_cubit.dart';
 
 class ForgetPasswordView extends StatefulWidget {
   const ForgetPasswordView({super.key});
@@ -125,7 +125,9 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                       : null,
                   onPressed: () {
                     if (!formKey.currentState!.validate()) return;
-                    cubit.forgetPassword(email: emailController.text);
+                    cubit.doIntent(
+                      OnButtonCLickedIntent(emailController.text),
+                    );
                   },
                 ),
               )

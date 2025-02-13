@@ -12,12 +12,22 @@ part 'verification_code_state.dart';
 class VerificationCodeCubit extends Cubit<VerificationCodeState> {
   @factoryMethod
   VerificationCodeCubit(
-      {required this.verificationCodeUseCase, required this.forgetPasswordUseCase})
+      {required this.verificationCodeUseCase,
+      required this.forgetPasswordUseCase})
       : super(VerificationCodeInitial());
   VerificationCodeUseCase verificationCodeUseCase;
   ForgetPasswordUseCase forgetPasswordUseCase;
 
-  void verificationCode({required String code}) async {
+  void doIntent(VerificationCodeIntent intent) {
+    switch (intent) {
+      case SendVerificationCodeIntent():
+        _sendVerificationCode(code: intent.code);
+      case ResendVerificationCodeIntent():
+        _resend(email: intent.email);
+    }
+  }
+
+  void _sendVerificationCode({required String code}) async {
     emit(VerificationCodeLoading());
     var result = await verificationCodeUseCase.execute(code: code);
     switch (result) {
@@ -30,7 +40,7 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
     }
   }
 
-  void resend({required String email}) async {
+  void _resend({required String email}) async {
     emit(ResendVerificationCodeLoading());
     var result = await forgetPasswordUseCase.execute(email: email);
     switch (result) {
@@ -42,4 +52,18 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
         emit(ResendVerificationCodeError(exception: result.exception));
     }
   }
+}
+
+sealed class VerificationCodeIntent {}
+
+class SendVerificationCodeIntent extends VerificationCodeIntent {
+  final String code;
+
+  SendVerificationCodeIntent(this.code);
+}
+
+class ResendVerificationCodeIntent extends VerificationCodeIntent {
+  final String email;
+
+  ResendVerificationCodeIntent(this.email);
 }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/utils/app_colors.dart';
 import 'package:flutter_application_1/core/utils/app_strings.dart';
 import 'package:flutter_application_1/features/auth/forget_password/reset_password/presentation/viewModel/reset_password_cubit.dart';
-import 'package:flutter_application_1/features/auth/forget_password/viewModel/forget_password_cubit.dart';
 import 'package:flutter_application_1/features/auth/widgets/custom_button.dart';
 import 'package:flutter_application_1/features/auth/widgets/custom_text_form_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,9 +114,9 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                 if (newPasswordController.text !=
                     confirmPasswordController.text) return;
 
-                BlocProvider.of<ResetPasswordCubit>(context).resetPassword(
-                  email: widget.email,
-                  password: newPasswordController.text,
+                BlocProvider.of<ResetPasswordCubit>(context).doIntent(
+                  OnButtonClickedIntent(
+                      widget.email, newPasswordController.text),
                 );
               },
             )

@@ -67,69 +67,34 @@ class ApiManager {
     }
   }
 
-  Future<Result<void>> forgetPassword({required String email}) async {
-    try {
-      var response = await dio.post(
-        AppConstants.forgetPasswordEndPoint,
-        data: {
-          'email': email,
-        },
-      );
-      ForgetPasswordResponse forgetPasswordResponse =
-          ForgetPasswordResponse.fromJson(response.data);
-      if (forgetPasswordResponse.message == 'success') {
-        return Success(data: null);
-      } else {
-        return ServerError(message: forgetPasswordResponse.message ?? '');
-      }
-    } on DioException catch (e) {
-      return Error(exception: e);
-    } catch (e) {
-      return ServerError(message: e.toString());
-    }
+  Future<void> forgetPassword({required String email}) async {
+    var response = await dio.post(
+      AppConstants.forgetPasswordEndPoint,
+      data: {
+        'email': email,
+      },
+    );
   }
 
-  Future<Result<void>> verificationCode({required String code}) async {
-    try {
-      var response = await dio.post(
-        AppConstants.verificationCodeEndPoint,
-        data: {
-          'resetCode': code,
-        },
-      );
-
-      if (response.statusCode! >= 200 && response.statusCode! <= 300) {
-        return Success(data: null);
-      } else {
-        return ServerError(message: response.statusMessage ?? '');
-      }
-    } on DioException catch (e) {
-      return Error(exception: e);
-    } catch (e) {
-      return ServerError(message: e.toString());
-    }
+  Future<void> verificationCode({required String code}) async {
+    var response = await dio.post(
+      AppConstants.verificationCodeEndPoint,
+      data: {
+        'resetCode': code,
+      },
+    );
   }
 
-  Future<Result<void>> resetPassword(
-      {required String email, required String password}) async {
-    try {
-      var response = await dio.put(
-        AppConstants.resetPasswordEndPoint,
-        data: {
-          'email': email,
-          'newPassword': password,
-        },
-      );
-
-      if (response.statusCode! >= 200 && response.statusCode! <= 300) {
-        return Success(data: null);
-      } else {
-        return ServerError(message: response.statusMessage ?? '');
-      }
-    } on DioException catch (e) {
-      return Error(exception: e);
-    } catch (e) {
-      return ServerError(message: e.toString());
-    }
+  Future<void> resetPassword({
+    required String email,
+    required String password,
+  }) async {
+    var response = await dio.put(
+      AppConstants.resetPasswordEndPoint,
+      data: {
+        'email': email,
+        'newPassword': password,
+      },
+    );
   }
 }

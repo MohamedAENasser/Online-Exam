@@ -1,3 +1,5 @@
+import '../../features/auth/data/model/api_error_model.dart';
+
 sealed class Result<T> {}
 
 class Success<T> extends Result<T> {
@@ -13,7 +15,8 @@ class ServerError<T> extends Result<T> {
 }
 
 class Error<T> extends Result<T> {
-  Exception exception;
+  Exception? exception;
+  ApiErrorModel? apiErrorModel;
 
-  Error({required this.exception});
+  Error({this.exception, this.apiErrorModel});
 }

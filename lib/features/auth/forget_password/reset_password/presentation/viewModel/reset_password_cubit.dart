@@ -13,7 +13,17 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       : super(ResetPasswordInitial());
   ResetPasswordUseCase resetPasswordUseCase;
 
-  void resetPassword({required String email, required String password}) async {
+  void doIntent(ResetPasswordIntent intent) {
+    switch (intent) {
+      case OnButtonClickedIntent():
+        _resetPassword(
+          email: intent.email,
+          password: intent.password,
+        );
+    }
+  }
+
+  void _resetPassword({required String email, required String password}) async {
     emit(ResetPasswordLoading());
     var result = await resetPasswordUseCase.execute(
       email: email,
@@ -28,4 +38,13 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
         emit(ResetPasswordError(exception: result.exception));
     }
   }
+}
+
+sealed class ResetPasswordIntent {}
+
+class OnButtonClickedIntent extends ResetPasswordIntent {
+  final String email;
+  final String password;
+
+  OnButtonClickedIntent(this.email, this.password);
 }

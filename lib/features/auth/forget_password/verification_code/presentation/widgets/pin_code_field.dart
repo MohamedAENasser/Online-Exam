@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/features/auth/forget_password/viewModel/forget_password_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -14,6 +12,7 @@ import '../viewModel/verification_code_cubit.dart';
 
 class PinCodeField extends StatefulWidget {
   const PinCodeField({super.key});
+
   @override
   State<PinCodeField> createState() => _PinCodeFieldState();
 }
@@ -76,8 +75,9 @@ class _PinCodeFieldState extends State<PinCodeField> {
             return errorBuilder();
           },
           onCompleted: (pin) {
-            BlocProvider.of<VerificationCodeCubit>(context)
-                .verificationCode(code: pin);
+            BlocProvider.of<VerificationCodeCubit>(context).doIntent(
+              SendVerificationCodeIntent(pin),
+            );
           },
           validator: (pin) {
             log(pin.toString());
@@ -91,8 +91,7 @@ class _PinCodeFieldState extends State<PinCodeField> {
     );
   }
 
-  Widget errorBuilder() =>
-      Padding(
+  Widget errorBuilder() => Padding(
         padding: REdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,

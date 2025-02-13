@@ -1,5 +1,6 @@
 part of 'verification_code_cubit.dart';
- class VerificationCodeState {}
+
+class VerificationCodeState {}
 
 class VerificationCodeInitial extends VerificationCodeState {}
 
@@ -27,4 +28,3 @@ class ResendVerificationCodeError extends VerificationCodeState {
 
   ResendVerificationCodeError({this.message, this.exception});
 }
-

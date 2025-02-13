@@ -3,11 +3,9 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/di/di.dart';
-import 'package:flutter_application_1/core/utils/app_colors.dart';
 import 'package:flutter_application_1/core/utils/app_strings.dart';
 import 'package:flutter_application_1/features/auth/forget_password/reset_password/presentation/viewModel/reset_password_cubit.dart';
 import 'package:flutter_application_1/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart';
-import 'package:flutter_application_1/features/auth/forget_password/viewModel/forget_password_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -82,8 +80,9 @@ class VerificationCodeView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  BlocProvider.of<VerificationCodeCubit>(context)
-                      .resend(email: email);
+                  BlocProvider.of<VerificationCodeCubit>(context).doIntent(
+                    ResendVerificationCodeIntent(email),
+                  );
                 },
                 child: Text(
                   'Resend',
