@@ -27,10 +27,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     switch (result) {
       case Success<void>():
         emit(ForgetPasswordSuccess());
-      case ServerError<void>():
-        emit(ForgetPasswordError(message: result.message));
       case Error<void>():
-        emit(ForgetPasswordError(exception: result.exception));
+        emit(ForgetPasswordError(
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
 }

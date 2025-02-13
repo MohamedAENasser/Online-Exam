@@ -8,15 +8,8 @@ class Success<T> extends Result<T> {
   Success({required this.data});
 }
 
-class ServerError<T> extends Result<T> {
-  String message;
-
-  ServerError({required this.message});
-}
-
 class Error<T> extends Result<T> {
-  Exception? exception;
-  ApiErrorModel? apiErrorModel;
+  ApiErrorModel apiErrorModel;
 
-  Error({this.exception, this.apiErrorModel});
+  Error({required this.apiErrorModel});
 }

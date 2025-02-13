@@ -47,7 +47,19 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
       ),
       body: BlocProvider(
         create: (context) => cubit,
-        child: BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+        child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+          listener: (context, state) {
+            if (state is ForgetPasswordError) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(
+                    state.apiErrorModel.message ?? '',
+                  ),
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             switch (state) {
               case ForgetPasswordSuccess():
@@ -56,10 +68,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   child: VerificationCodeView(
                     email: emailController.text,
                   ),
-                );
-              case ForgetPasswordError():
-                return Text(
-                  state.message ?? state.exception.toString(),
                 );
             }
             return buildForgetPasswordView(state);

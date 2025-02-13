@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:injectable/injectable.dart';
 
@@ -32,10 +33,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     switch (result) {
       case Success<void>():
         emit(ResetPasswordSuccess());
-      case ServerError<void>():
-        emit(ResetPasswordError(message: result.message));
       case Error<void>():
-        emit(ResetPasswordError(exception: result.exception));
+        emit(ResetPasswordError(apiErrorModel: result.apiErrorModel));
     }
   }
 }

@@ -13,15 +13,16 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.authDataSource});
 
   @override
-  Future<Result<UserEntity>> signUp(
-      {required String userName,
-      required String firstName,
-      required String lastName,
-      required String email,
-      required String password,
-      required String confirmPassword,
-      required String phoneNumber}) async {
-    var result = await authDataSource.signUp(
+  Future<Result<UserEntity?>> signUp({
+    required String userName,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String confirmPassword,
+    required String phoneNumber,
+  }) async {
+    return authDataSource.signUp(
       userName: userName,
       firstName: firstName,
       lastName: lastName,
@@ -30,14 +31,6 @@ class AuthRepoImpl implements AuthRepo {
       confirmPassword: confirmPassword,
       phoneNumber: phoneNumber,
     );
-    switch (result) {
-      case Success<UserDM>():
-        return Success(data: result.data.toEntity());
-      case ServerError<UserDM>():
-        return ServerError(message: result.message);
-      case Error<UserDM>():
-        return Error(exception: result.exception);
-    }
   }
 
   @override

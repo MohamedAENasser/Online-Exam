@@ -3,6 +3,7 @@ import 'package:flutter_application_1/features/auth/data/api/api_executer.dart';
 import 'package:flutter_application_1/features/auth/data/api/api_manager.dart';
 
 import 'package:flutter_application_1/features/auth/data/model/auth_response/user_dm.dart';
+import 'package:flutter_application_1/features/auth/domain/entity/user_entity.dart';
 import 'package:injectable/injectable.dart';
 
 import '../datasource_contract/auth_datasource.dart';
@@ -15,7 +16,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl({required this.apiManager});
 
   @override
-  Future<Result<UserDM>> signUp({
+  Future<Result<UserEntity?>> signUp({
     required String userName,
     required String firstName,
     required String lastName,
@@ -23,16 +24,19 @@ class AuthDataSourceImpl implements AuthDataSource {
     required String password,
     required String confirmPassword,
     required String phoneNumber,
-  }) {
-    return apiManager.signUp(
-      userName: userName,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-      phoneNumber: phoneNumber,
-    );
+  }) async {
+    return executeApi<UserEntity?>(() async {
+      var user = await apiManager.signUp(
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        phoneNumber: phoneNumber,
+      );
+      return user?.toEntity();
+    });
   }
 
   @override

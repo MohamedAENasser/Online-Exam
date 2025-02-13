@@ -3,7 +3,7 @@ import 'package:flutter_application_1/features/auth/domain/entity/user_entity.da
 import '../../../../core/utils/result.dart';
 
 abstract class AuthRepo {
-  Future<Result<UserEntity>> signUp({
+  Future<Result<UserEntity?>> signUp({
     required String userName,
     required String firstName,
     required String lastName,

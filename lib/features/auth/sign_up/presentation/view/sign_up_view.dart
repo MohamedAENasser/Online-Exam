@@ -145,6 +145,7 @@ class _SignUpViewState extends State<SignUpView> {
                         labelText: 'password',
                         hintText: 'Enter password',
                         controller: passwordController,
+                        obscureText: true,
                         validator: (input) {
                           return validate(
                             input: input,
@@ -161,6 +162,7 @@ class _SignUpViewState extends State<SignUpView> {
                         labelText: 'Confirm password',
                         hintText: 'Confirm password',
                         controller: confirmPasswordController,
+                        obscureText: true,
                         validator: (input) {
                           if (input == null ||
                               input.trim().isEmpty ||
@@ -199,8 +201,15 @@ class _SignUpViewState extends State<SignUpView> {
                       if (state is SignUpSuccess) {
                         log('Successssssss');
                       } else if (state is SignUpError) {
-                        log('There is an Error');
-                        log(state.message ?? state.exception.toString());
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                              state.apiErrorModel.message ?? '',
+                            ),
+                          ),
+                        );
+                        log(state.apiErrorModel.message ?? '');
                       }
                     },
                     builder: (context, state) {
@@ -219,14 +228,17 @@ class _SignUpViewState extends State<SignUpView> {
                               : null,
                           onPressed: () {
                             if (!formKey.currentState!.validate()) return;
-                            cubit.signUp(
-                              userName: userNameController.text,
-                              firstName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                              confirmPassword: confirmPasswordController.text,
-                              phoneNumber: phoneNumberController.text,
+
+                            cubit.doIntent(
+                              OnSignUpButtonClicked(
+                                userName: userNameController.text,
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                confirmPassword: confirmPasswordController.text,
+                                phoneNumber: phoneNumberController.text,
+                              ),
                             );
                           },
                         ),

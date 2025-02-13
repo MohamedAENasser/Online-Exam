@@ -9,11 +9,8 @@ class SignUpLoading extends SignUpState {}
 class SignUpSuccess extends SignUpState {}
 
 class SignUpError extends SignUpState {
-  String? message;
-  Exception? exception;
-
+ApiErrorModel apiErrorModel;
   SignUpError({
-    this.message,
-    this.exception,
+required this.apiErrorModel
   });
 }

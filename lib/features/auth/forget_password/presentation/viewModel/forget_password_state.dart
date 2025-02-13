@@ -9,15 +9,9 @@ class ForgetPasswordLoading extends ForgetPasswordState {}
 class ForgetPasswordSuccess extends ForgetPasswordState {}
 
 class ForgetPasswordError extends ForgetPasswordState {
-  String? message;
-
-  Exception? exception;
-
-  ApiErrorModel? apiErrorModel;
+  ApiErrorModel apiErrorModel;
 
   ForgetPasswordError({
-    this.message,
-    this.exception,
-    this.apiErrorModel,
+    required this.apiErrorModel,
   });
 }

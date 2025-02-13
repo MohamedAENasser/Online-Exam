@@ -25,6 +25,7 @@ class ResetPasswordView extends StatefulWidget {
 class _ResetPasswordViewState extends State<ResetPasswordView> {
   late TextEditingController newPasswordController;
   late TextEditingController confirmPasswordController;
+  GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   void initState() {
@@ -47,80 +48,94 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         if (state is ResetPasswordSuccess) {
           /// navigate to login
           log('successsss');
+        } else if (state is ResetPasswordError) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                state.apiErrorModel.message ?? '',
+              ),
+            ),
+          );
         }
       },
       builder: (context, state) {
         switch (state) {
-          case ResetPasswordInitial():
-            return buildResetPasswordView();
           case ResetPasswordLoading():
             return const LoadingWidget();
-          case ResetPasswordError():
-            return Text(
-              state.message ?? state.exception.toString(),
-            );
         }
-        return SizedBox();
+        return buildResetPasswordView();
       },
     );
   }
 
   Widget buildResetPasswordView() => Padding(
         padding: REdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: 40.h,
-            ),
-            Text(
-              'Reset password',
-              style: AppTextStyles.forgetPassword,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            Text(
-              AppStrings.resetPasswordDesc,
-              style: AppTextStyles.forgetPasswordDesc,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 32.h,
-            ),
-            CustomTextFormField(
-              hintText: 'Enter your password',
-              controller: newPasswordController,
-              labelText: 'New password',
-              obscureText: true,
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-            CustomTextFormField(
-              hintText: 'Confirm password',
-              controller: confirmPasswordController,
-              labelText: 'Confirm password',
-              obscureText: true,
-            ),
-            SizedBox(
-              height: 48.h,
-            ),
-            CustomButton(
-              color: AppColors.darkBlue,
-              text: 'Continue',
-              onPressed: () {
-                if (newPasswordController.text !=
-                    confirmPasswordController.text) return;
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 40.h,
+              ),
+              Text(
+                'Reset password',
+                style: AppTextStyles.forgetPassword,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                AppStrings.resetPasswordDesc,
+                style: AppTextStyles.forgetPasswordDesc,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              CustomTextFormField(
+                hintText: 'Enter your password',
+                controller: newPasswordController,
+                labelText: 'New password',
+                obscureText: true,
+              ),
+              SizedBox(
+                height: 24.h,
+              ),
+              CustomTextFormField(
+                hintText: 'Confirm password',
+                controller: confirmPasswordController,
+                labelText: 'Confirm password',
+                obscureText: true,
+                validator: (input) {
+                  if (input == null ||
+                      input.trim().isEmpty ||
+                      newPasswordController.text !=
+                          confirmPasswordController.text) {
+                    return 'password not matched';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 48.h,
+              ),
+              CustomButton(
+                color: AppColors.darkBlue,
+                text: 'Continue',
+                onPressed: () {
+                  if (!formKey.currentState!.validate()) return;
 
-                BlocProvider.of<ResetPasswordCubit>(context).doIntent(
-                  OnButtonClickedIntent(
-                      widget.email, newPasswordController.text),
-                );
-              },
-            )
-          ],
+                  BlocProvider.of<ResetPasswordCubit>(context).doIntent(
+                    OnButtonClickedIntent(
+                        widget.email, newPasswordController.text),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       );
 }

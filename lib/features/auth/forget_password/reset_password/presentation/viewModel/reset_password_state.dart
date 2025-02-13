@@ -9,9 +9,7 @@ class ResetPasswordLoading extends ResetPasswordState {}
 class ResetPasswordSuccess extends ResetPasswordState {}
 
 class ResetPasswordError extends ResetPasswordState {
-  String? message;
+ApiErrorModel apiErrorModel;
 
-  Exception? exception;
-
-  ResetPasswordError({this.message, this.exception});
+  ResetPasswordError({required this.apiErrorModel});
 }

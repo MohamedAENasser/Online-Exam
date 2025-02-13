@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/forget_passsword_use_case.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/verification_code_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,10 +34,8 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
     switch (result) {
       case Success<void>():
         emit(VerificationCodeSuccess());
-      case ServerError<void>():
-        emit(VerificationCodeError(message: result.message));
       case Error<void>():
-        emit(VerificationCodeError(exception: result.exception));
+        emit(VerificationCodeError(apiErrorModel: result.apiErrorModel));
     }
   }
 
@@ -46,10 +45,8 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
     switch (result) {
       case Success<void>():
         emit(ResendVerificationCodeSuccess());
-      case ServerError<void>():
-        emit(ResendVerificationCodeError(message: result.message));
       case Error<void>():
-        emit(ResendVerificationCodeError(exception: result.exception));
+        emit(ResendVerificationCodeError(apiErrorModel: result.apiErrorModel));
     }
   }
 }

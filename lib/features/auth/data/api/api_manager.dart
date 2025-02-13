@@ -30,7 +30,7 @@ class ApiManager {
       error: true, // Log errors
     ));
 
-  Future<Result<UserDM>> signUp({
+  Future<UserDM?> signUp({
     required String userName,
     required String firstName,
     required String lastName,
@@ -39,32 +39,20 @@ class ApiManager {
     required String confirmPassword,
     required String phoneNumber,
   }) async {
-    try {
-      var result = await dio.post(
-        AppConstants.signUpEndPoint,
-        data: SignUpRequest(
-          username: userName,
-          password: password,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          phone: phoneNumber,
-          rePassword: confirmPassword,
-        ).toJson(),
-      );
-      AuthResponse authResponse = AuthResponse.fromJson(result.data);
-      if (authResponse.message == 'success') {
-        return Success(
-          data: authResponse.user ?? UserDM(),
-        );
-      } else {
-        return ServerError(message: authResponse.message ?? '');
-      }
-    } on DioException catch (e) {
-      return Error(exception: e);
-    } catch (e) {
-      return ServerError(message: e.toString());
-    }
+    var result = await dio.post(
+      AppConstants.signUpEndPoint,
+      data: SignUpRequest(
+        username: userName,
+        password: password,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phoneNumber,
+        rePassword: confirmPassword,
+      ).toJson(),
+    );
+    AuthResponse authResponse = AuthResponse.fromJson(result.data);
+    return authResponse.user;
   }
 
   Future<void> forgetPassword({required String email}) async {
