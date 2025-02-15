@@ -2,8 +2,8 @@ import 'package:flutter_application_1/features/auth/domain/entity/user_entity.da
 
 import '../../../../core/utils/result.dart';
 
-abstract class AuthRepo{
-  Future<Result<UserEntity>> signUp({
+abstract class AuthRepo {
+  Future<Result<UserEntity?>> signUp({
     required String userName,
     required String firstName,
     required String lastName,
@@ -12,4 +12,11 @@ abstract class AuthRepo{
     required String confirmPassword,
     required String phoneNumber,
   });
+
+  Future<Result<void>> forgetPassword({required String email});
+
+  Future<Result<void>> verificationCode({required String code});
+
+  Future<Result<void>> resetPassword(
+      {required String email, required String password});
 }

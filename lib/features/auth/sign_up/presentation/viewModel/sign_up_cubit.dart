@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/core/utils/result.dart';
+import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/entity/user_entity.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/sign_up_usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -9,10 +11,25 @@ part 'sign_up_state.dart';
 @injectable
 class SignUpCubit extends Cubit<SignUpState> {
   @factoryMethod
-  SignUpCubit({required this.useCase}) : super(SignUpInitial());
+  SignUpCubit({required this.useCase}) : super(SignUpState());
   SignUpUseCase useCase;
 
-  void signUp({
+  void doIntent(SignUpIntent intent) {
+    switch (intent) {
+      case OnSignUpButtonClicked():
+        _signUp(
+          userName: intent.userName,
+          firstName: intent.firstName,
+          lastName: intent.lastName,
+          email: intent.email,
+          password: intent.password,
+          confirmPassword: intent.confirmPassword,
+          phoneNumber: intent.phoneNumber,
+        );
+    }
+  }
+
+  void _signUp({
     required String userName,
     required String firstName,
     required String lastName,
@@ -21,7 +38,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String confirmPassword,
     required String phoneNumber,
   }) async {
-    emit(SignUpLoading());
+    emit(state.copyWith(
+      state: SignUpStatus.loading,
+    ));
     var result = await useCase.execute(
       userName: userName,
       firstName: firstName,
@@ -32,12 +51,37 @@ class SignUpCubit extends Cubit<SignUpState> {
       phoneNumber: phoneNumber,
     );
     switch (result) {
-      case Success<UserEntity>():
-        emit(SignUpSuccess());
-      case ServerError<UserEntity>():
-        emit(SignUpError(message: result.message));
-      case Error<UserEntity>():
-        emit(SignUpError(exception: result.exception));
+      case Success<UserEntity?>():
+        emit(state.copyWith(
+          state: SignUpStatus.success,
+        ));
+      case Error<UserEntity?>():
+        emit(state.copyWith(
+          state: SignUpStatus.error,
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
+}
+
+sealed class SignUpIntent {}
+
+class OnSignUpButtonClicked extends SignUpIntent {
+  final String userName;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String password;
+  final String confirmPassword;
+  final String phoneNumber;
+
+  OnSignUpButtonClicked({
+    required this.userName,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.password,
+    required this.confirmPassword,
+    required this.phoneNumber,
+  });
 }

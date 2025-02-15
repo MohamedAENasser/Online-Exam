@@ -13,15 +13,16 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl({required this.authDataSource});
 
   @override
-  Future<Result<UserEntity>> signUp(
-      {required String userName,
-      required String firstName,
-      required String lastName,
-      required String email,
-      required String password,
-      required String confirmPassword,
-      required String phoneNumber}) async {
-    var result = await authDataSource.signUp(
+  Future<Result<UserEntity?>> signUp({
+    required String userName,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required String confirmPassword,
+    required String phoneNumber,
+  }) async {
+    return authDataSource.signUp(
       userName: userName,
       firstName: firstName,
       lastName: lastName,
@@ -30,13 +31,21 @@ class AuthRepoImpl implements AuthRepo {
       confirmPassword: confirmPassword,
       phoneNumber: phoneNumber,
     );
-    switch (result) {
-      case Success<UserDM>():
-        return Success(data: result.data.toEntity());
-      case ServerError<UserDM>():
-        return ServerError(message: result.message);
-      case Error<UserDM>():
-        return Error(exception: result.exception);
-    }
+  }
+
+  @override
+  Future<Result<void>> forgetPassword({required String email}) {
+    return authDataSource.forgetPassword(email: email);
+  }
+
+  @override
+  Future<Result<void>> verificationCode({required String code}) {
+    return authDataSource.verificationCode(code: code);
+  }
+
+  @override
+  Future<Result<void>> resetPassword(
+      {required String email, required String password}) {
+    return authDataSource.resetPassword(email: email, password: password);
   }
 }

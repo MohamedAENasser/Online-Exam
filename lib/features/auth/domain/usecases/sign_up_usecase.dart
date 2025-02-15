@@ -11,7 +11,7 @@ class SignUpUseCase {
   @factoryMethod
   SignUpUseCase({required this.repo});
 
-  Future<Result<UserEntity>> execute({
+  Future<Result<UserEntity?>> execute({
     required String userName,
     required String firstName,
     required String lastName,

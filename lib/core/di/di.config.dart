@@ -19,7 +19,19 @@ import '../../features/auth/data/datasource_impl/auth_datasource_impl.dart'
     as _i500;
 import '../../features/auth/data/repo_impl/auth_repo_impl.dart' as _i279;
 import '../../features/auth/domain/repo_contract/auth_repo.dart' as _i25;
+import '../../features/auth/domain/usecases/forget_passsword_use_case.dart'
+    as _i877;
+import '../../features/auth/domain/usecases/reset_password_use_case.dart'
+    as _i825;
 import '../../features/auth/domain/usecases/sign_up_usecase.dart' as _i860;
+import '../../features/auth/domain/usecases/verification_code_use_case.dart'
+    as _i1024;
+import '../../features/auth/forget_password/presentation/viewModel/forget_password_cubit.dart'
+    as _i162;
+import '../../features/auth/forget_password/reset_password/presentation/viewModel/reset_password_cubit.dart'
+    as _i535;
+import '../../features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart'
+    as _i411;
 import '../../features/auth/sign_up/presentation/viewModel/sign_up_cubit.dart'
     as _i1020;
 
@@ -39,10 +51,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i500.AuthDataSourceImpl(apiManager: gh<_i1023.ApiManager>()));
     gh.factory<_i25.AuthRepo>(
         () => _i279.AuthRepoImpl(authDataSource: gh<_i707.AuthDataSource>()));
+    gh.factory<_i877.ForgetPasswordUseCase>(
+        () => _i877.ForgetPasswordUseCase(repo: gh<_i25.AuthRepo>()));
     gh.factory<_i860.SignUpUseCase>(
         () => _i860.SignUpUseCase(repo: gh<_i25.AuthRepo>()));
+    gh.factory<_i1024.VerificationCodeUseCase>(
+        () => _i1024.VerificationCodeUseCase(repo: gh<_i25.AuthRepo>()));
+    gh.factory<_i825.ResetPasswordUseCase>(
+        () => _i825.ResetPasswordUseCase(repo: gh<_i25.AuthRepo>()));
+    gh.factory<_i411.VerificationCodeCubit>(() => _i411.VerificationCodeCubit(
+          verificationCodeUseCase: gh<_i1024.VerificationCodeUseCase>(),
+          forgetPasswordUseCase: gh<_i877.ForgetPasswordUseCase>(),
+        ));
+    gh.factory<_i162.ForgetPasswordCubit>(() => _i162.ForgetPasswordCubit(
+        forgetPasswordUseCase: gh<_i877.ForgetPasswordUseCase>()));
     gh.factory<_i1020.SignUpCubit>(
         () => _i1020.SignUpCubit(useCase: gh<_i860.SignUpUseCase>()));
+    gh.factory<_i535.ResetPasswordCubit>(() => _i535.ResetPasswordCubit(
+        resetPasswordUseCase: gh<_i825.ResetPasswordUseCase>()));
     return this;
   }
 }

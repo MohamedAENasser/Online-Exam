@@ -35,4 +35,22 @@ abstract class AppTextStyles {
     color: AppColors.darkBlue,
     decoration: TextDecoration.underline,
   );
+
+
+  static TextStyle forgetPassword = GoogleFonts.inter(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
+
+  static TextStyle forgetPasswordDesc = GoogleFonts.inter(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.gray,
+  );
+  static TextStyle invalidCode = GoogleFonts.inter(
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.error,
+  );
 }
