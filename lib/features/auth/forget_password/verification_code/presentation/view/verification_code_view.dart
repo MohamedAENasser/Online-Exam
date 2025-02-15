@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/di/di.dart';
@@ -8,8 +6,6 @@ import 'package:flutter_application_1/features/auth/forget_password/reset_passwo
 import 'package:flutter_application_1/features/auth/forget_password/verification_code/presentation/viewModel/verification_code_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pinput/pinput.dart';
-
 import '../../../../../../core/utils/app_text_styles.dart';
 import '../../../../widgets/loading_widget.dart';
 import '../../../reset_password/presentation/view/reset_password_view.dart';
@@ -24,20 +20,20 @@ class VerificationCodeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<VerificationCodeCubit, VerificationCodeState>(
       builder: (context, state) {
-        switch (state) {
-          case VerificationCodeLoading():
-            return const LoadingWidget();
-          case VerificationCodeSuccess():
-            return BlocProvider(
-              create: (context) => getIt<ResetPasswordCubit>(),
-              child: ResetPasswordView(
-                email: email,
-              ),
-            );
-          case ResendVerificationCodeLoading():
-            return const LoadingWidget();
+        if (state.isSendCodeLoading) {
+          return const LoadingWidget();
+        } else if (state.isSendCodeSuccess) {
+          return BlocProvider(
+            create: (context) => getIt<ResetPasswordCubit>(),
+            child: ResetPasswordView(
+              email: email,
+            ),
+          );
+        } else if (state.isResendCodeLoading) {
+          return const LoadingWidget();
+        } else {
+          return buildVerificationCodeView(context);
         }
-        return buildVerificationCodeView(context);
       },
     );
   }

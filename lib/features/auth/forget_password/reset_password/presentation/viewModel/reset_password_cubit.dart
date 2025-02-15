@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:injectable/injectable.dart';
@@ -11,7 +12,7 @@ part 'reset_password_state.dart';
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   @factoryMethod
   ResetPasswordCubit({required this.resetPasswordUseCase})
-      : super(ResetPasswordInitial());
+      : super(ResetPasswordState());
   ResetPasswordUseCase resetPasswordUseCase;
 
   void doIntent(ResetPasswordIntent intent) {
@@ -25,16 +26,23 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   }
 
   void _resetPassword({required String email, required String password}) async {
-    emit(ResetPasswordLoading());
+    emit(state.copyWith(
+      state: ResetPasswordStatus.loading,
+    ));
     var result = await resetPasswordUseCase.execute(
       email: email,
       password: password,
     );
     switch (result) {
       case Success<void>():
-        emit(ResetPasswordSuccess());
+        emit(state.copyWith(
+          state: ResetPasswordStatus.success,
+        ));
       case Error<void>():
-        emit(ResetPasswordError(apiErrorModel: result.apiErrorModel));
+        emit(state.copyWith(
+          state: ResetPasswordStatus.error,
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
 }

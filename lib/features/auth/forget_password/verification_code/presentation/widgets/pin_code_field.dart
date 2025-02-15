@@ -81,7 +81,7 @@ class _PinCodeFieldState extends State<PinCodeField> {
           },
           validator: (pin) {
             log(pin.toString());
-            if (state is VerificationCodeError) {
+            if (state.isSendCodeError) {
               return 'not valid';
             }
             return null;

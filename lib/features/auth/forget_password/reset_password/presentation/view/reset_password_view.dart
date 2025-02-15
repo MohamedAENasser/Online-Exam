@@ -45,24 +45,23 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
-        if (state is ResetPasswordSuccess) {
+        if (state.isSuccess) {
           /// navigate to login
           log('successsss');
-        } else if (state is ResetPasswordError) {
+        } else if (state.isError) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
               title: Text(
-                state.apiErrorModel.message ?? '',
+                state.apiErrorModel?.message ?? '',
               ),
             ),
           );
         }
       },
       builder: (context, state) {
-        switch (state) {
-          case ResetPasswordLoading():
-            return const LoadingWidget();
+        if (state.isLoading) {
+          return const LoadingWidget();
         }
         return buildResetPasswordView();
       },

@@ -49,35 +49,35 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
         create: (context) => cubit,
         child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
           listener: (context, state) {
-            if (state is ForgetPasswordError) {
+            if (state.isError) {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
                   title: Text(
-                    state.apiErrorModel.message ?? '',
+                    state.apiErrorModel?.message ?? '',
                   ),
                 ),
               );
             }
           },
           builder: (context, state) {
-            switch (state) {
-              case ForgetPasswordSuccess():
-                return BlocProvider(
-                  create: (context) => getIt<VerificationCodeCubit>(),
-                  child: VerificationCodeView(
-                    email: emailController.text,
-                  ),
-                );
+            if (state.isSuccess) {
+              return BlocProvider(
+                create: (context) => getIt<VerificationCodeCubit>(),
+                child: VerificationCodeView(
+                  email: emailController.text,
+                ),
+              );
+            } else {
+              return buildForgetPasswordView(state);
             }
-            return buildForgetPasswordView(state);
           },
         ),
       ),
     );
   }
 
-  Widget buildForgetPasswordView(state) => Padding(
+  Widget buildForgetPasswordView(ForgetPasswordState state) => Padding(
         padding: REdgeInsets.symmetric(horizontal: 16),
         child: Form(
           key: formKey,
@@ -124,7 +124,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                 child: CustomButton(
                   color: AppColors.darkBlue,
                   text: 'Continue',
-                  widget: state is ForgetPasswordLoading
+                  widget: state.isLoading
                       ? const Center(
                           child: CircularProgressIndicator(
                             color: AppColors.white,

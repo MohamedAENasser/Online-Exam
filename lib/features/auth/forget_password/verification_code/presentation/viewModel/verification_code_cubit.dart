@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/forget_passsword_use_case.dart';
 import 'package:flutter_application_1/features/auth/domain/usecases/verification_code_use_case.dart';
@@ -15,7 +16,7 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
   VerificationCodeCubit(
       {required this.verificationCodeUseCase,
       required this.forgetPasswordUseCase})
-      : super(VerificationCodeInitial());
+      : super(VerificationCodeState());
   VerificationCodeUseCase verificationCodeUseCase;
   ForgetPasswordUseCase forgetPasswordUseCase;
 
@@ -29,24 +30,38 @@ class VerificationCodeCubit extends Cubit<VerificationCodeState> {
   }
 
   void _sendVerificationCode({required String code}) async {
-    emit(VerificationCodeLoading());
+    emit(state.copyWith(
+      state: VerificationCodeStatus.sendCodeLoading,
+    ));
     var result = await verificationCodeUseCase.execute(code: code);
     switch (result) {
       case Success<void>():
-        emit(VerificationCodeSuccess());
+        emit(state.copyWith(
+          state: VerificationCodeStatus.sendCodeSuccess,
+        ));
       case Error<void>():
-        emit(VerificationCodeError(apiErrorModel: result.apiErrorModel));
+        emit(state.copyWith(
+          state: VerificationCodeStatus.sendCodeError,
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
 
   void _resend({required String email}) async {
-    emit(ResendVerificationCodeLoading());
+    emit(state.copyWith(
+      state: VerificationCodeStatus.resendCodeLoading,
+    ));
     var result = await forgetPasswordUseCase.execute(email: email);
     switch (result) {
       case Success<void>():
-        emit(ResendVerificationCodeSuccess());
+        emit(state.copyWith(
+          state: VerificationCodeStatus.resendCodeSuccess,
+        ));
       case Error<void>():
-        emit(ResendVerificationCodeError(apiErrorModel: result.apiErrorModel));
+        emit(state.copyWith(
+          state: VerificationCodeStatus.resendCodeError,
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
 }

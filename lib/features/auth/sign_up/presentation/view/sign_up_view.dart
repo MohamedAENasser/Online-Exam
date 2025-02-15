@@ -198,18 +198,18 @@ class _SignUpViewState extends State<SignUpView> {
                   child: BlocConsumer<SignUpCubit, SignUpState>(
                     listener: (context, state) {
                       // TODO: navigation to login or home view
-                      if (state is SignUpSuccess) {
+                      if (state.isSuccess) {
                         log('Successssssss');
-                      } else if (state is SignUpError) {
+                      } else if (state.isError) {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(
-                              state.apiErrorModel.message ?? '',
+                              state.apiErrorModel?.message ?? '',
                             ),
                           ),
                         );
-                        log(state.apiErrorModel.message ?? '');
+                        log(state.apiErrorModel?.message ?? '');
                       }
                     },
                     builder: (context, state) {
@@ -219,7 +219,7 @@ class _SignUpViewState extends State<SignUpView> {
                         child: CustomButton(
                           color: AppColors.darkBlue,
                           text: 'SignUp',
-                          widget: state is SignUpLoading
+                          widget: state.isLoading
                               ? const Center(
                                   child: CircularProgressIndicator(
                                     color: AppColors.white,

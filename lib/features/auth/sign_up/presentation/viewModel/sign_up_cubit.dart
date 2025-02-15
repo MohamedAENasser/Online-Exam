@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/core/utils/result.dart';
 import 'package:flutter_application_1/features/auth/data/model/api_error_model.dart';
 import 'package:flutter_application_1/features/auth/domain/entity/user_entity.dart';
@@ -10,7 +11,7 @@ part 'sign_up_state.dart';
 @injectable
 class SignUpCubit extends Cubit<SignUpState> {
   @factoryMethod
-  SignUpCubit({required this.useCase}) : super(SignUpInitial());
+  SignUpCubit({required this.useCase}) : super(SignUpState());
   SignUpUseCase useCase;
 
   void doIntent(SignUpIntent intent) {
@@ -37,7 +38,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String confirmPassword,
     required String phoneNumber,
   }) async {
-    emit(SignUpLoading());
+    emit(state.copyWith(
+      state: SignUpStatus.loading,
+    ));
     var result = await useCase.execute(
       userName: userName,
       firstName: firstName,
@@ -49,9 +52,14 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
     switch (result) {
       case Success<UserEntity?>():
-        emit(SignUpSuccess());
+        emit(state.copyWith(
+          state: SignUpStatus.success,
+        ));
       case Error<UserEntity?>():
-        emit(SignUpError(apiErrorModel: result.apiErrorModel));
+        emit(state.copyWith(
+          state: SignUpStatus.error,
+          apiErrorModel: result.apiErrorModel,
+        ));
     }
   }
 }
